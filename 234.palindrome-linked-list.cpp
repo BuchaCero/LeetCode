@@ -12,25 +12,23 @@ struct ListNode {
 
 class Solution {
 public:
-    bool isPalindrome(ListNode *head) {
-        int count = 0;
-        ListNode *p = head;
-
-        while (p != nullptr) {
-            count++;
-            p = p->next;
-        }
-
-        p = head;
+    bool isPalindrome(ListNode* head) {
+        // p,s : 快慢 pointer
+        // p,q,r : 反轉 linked-list
+        ListNode *p = head, *s = head;
         ListNode *q = nullptr, *r;
-        for (int i = 0; i < count/2; i++) {
+
+        while (s != nullptr && s->next != nullptr) {
+            s = (s->next)->next;
             r = q;
             q = p;
             p = p->next;
             q->next = r;
         }
 
-        if (count % 2 != 0) p = p->next;
+        if (s != nullptr) {
+            p = p->next;
+        }
 
         while (p != nullptr) {
             if (p->val != q->val) return false;
